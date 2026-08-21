@@ -4,9 +4,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 llm = HuggingFaceEndpoint(
-    repo_id="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-    task="text-generation",
-    # max_new_tokens=1280,
+    repo_id="Qwen/Qwen2.5-1.5B-Instruct",
+    task="conversational",
 )
 
 model = ChatHuggingFace(llm=llm)

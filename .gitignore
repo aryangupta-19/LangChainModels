@@ -6,6 +6,7 @@ env/
 # Environment variables / secrets
 .env
 .env.*
+!Setup/.env.example
 
 # Python cache
 __pycache__/
