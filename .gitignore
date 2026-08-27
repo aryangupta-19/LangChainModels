@@ -12,10 +12,19 @@ env/
 __pycache__/
 *.py[cod]
 
+# Node
+node_modules/
+
 # macOS
 .DS_Store
 
 # IDE
 .vscode/
-.idea/
+.idea/.venv/
+__pycache__/
+.env
+.DS_Store
 .venv/
+__pycache__/
+.env
+.DS_Store
