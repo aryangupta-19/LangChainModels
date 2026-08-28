@@ -48,13 +48,12 @@ if __name__ == "__main__":
 
 # Till now we don't have any info about msgs title -> means msg sent by user or aibot
 
-# TYpes of messages inlangchain 
-# system msgm,  Human msgs, Ai msgs 
+# TYpes of messages in langchain 
+# system msgs,  Human msgs, Ai msgs 
 
-# now implement it we will first define systemMessage in inital_history array
+# now implement ->  we will first define systemMessage in inital_history array
 
-# Important note!! in open ai we have to maintain msgs mannualy and append in history but in gemini it creates 
-# a function 
+# Important note!! in open ai we have to maintain msgs mannualy and append in history but in gemini it creates a function 
 # chat = client.chats.create(model="gemini-3.7-flash")
 # this  chat is a function which maintains a record of past messages also 
 
@@ -62,10 +61,10 @@ if __name__ == "__main__":
 # tumhari Python list ki tarah continuously update nahi hoti.
 
 # Therefore in futute if we are going to make any chatbox using open ai api then we have to make all these 
-# systemvariuable humanvariable and aivariable for messages storage
+# system_variable human_variable and ai_variable for messages storage
 
 
-# Recall we learnt -> static vs dynamic prompts -> 
+# Recall we learnt -> static vs dynamic prompts 
 # static -> All control to user, mistypes can occur
 # dynamic -> we provide placeholders to users to choose similar prompts or give 90 % of code and user can modify it 
 
