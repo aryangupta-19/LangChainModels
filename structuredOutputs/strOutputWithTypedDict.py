@@ -2,6 +2,9 @@ from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from typing import TypedDict, Annotated, Optional, Literal
 
+# Annotated -> It is used to specify extra information without changing actual dataType 
+# Literal is used when we want restrict value to specific keywords 
+
 load_dotenv()
 
 model = ChatOpenAI()
@@ -19,13 +22,14 @@ class Review(TypedDict):
     
 
 structured_model = model.with_structured_output(Review)
-# actually when this fun is called an internal prompt is created and invoked which is similar to 
-# prompt => u r an ai asistant that extracts structure insights from text -> given a prod review extract summary; a brief overview 
-# sentiment: overall tone of the review +ve, -ve or nerutral return the response injson format 
+# actually when this function is called an internal prompt is created and invoked which is similar to, 
+# prompt => u r an ai asistant that extracts structure insights from text -> given a product's review extract,
+# summary: a brief overview 
+# sentiment: overall tone of the review +ve, -ve or nerutral return the response in json format 
 # so this prompt goes to llm and response comes 
 
 
-# note here we don't have any gurantee that data comes with proper vaildations like though we specified summary should be string but it mayu not come as strin g alsp 
+# note here we don't have any gurantee that data comes with proper vaildations, though we specified summary should be string but it may not come as string also
 # therfore for that we will use pydantic
 
 
@@ -38,7 +42,7 @@ Stunning 200MP camera with incredible zoom capabilities
 Long battery life with fast charging
 S-Pen support is unique and useful
                                  
-Review by Nitish Singh
+Review by Aryan Gupta
 """)
 
 print(result['name'])

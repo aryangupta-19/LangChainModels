@@ -1,4 +1,4 @@
-# First Install pydantic ->>    pip install pydantic 
+# First Install pydantic        «««    pip install pydantic    «««««
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 

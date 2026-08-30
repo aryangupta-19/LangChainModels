@@ -11,7 +11,7 @@ print(langchain.__version__)
 # Advantages of structured outputs: 
 # Data Abstraction
 # Api Building, flask and fastapi are used to build api
-# Agents, note chatbox can only talk to us but agents can perform work for us, eg they can calculate complex operations for us 
+# Agents, note ->  chatbox can only talk to us but agents can perform work for us, eg they can calculate complex operations for us 
   
 
 # LLMs talk to human but don't provide structured outputs they provide just english text that was the reason they were not able to 
@@ -30,23 +30,22 @@ print(langchain.__version__)
 
 # Here we will use TypedDict , Pydantic , json_schema
 
-# TypedDict -> It is a way to define dict in python where we specify what key and values can exists, it helps to ensure 
-# a dict follows a proper structure 
+# TypedDict -> It is a way to define dictionary in python where we specify what key and values can exists, it helps to ensure 
+# a dictionary that follows a proper structure 
 
 # go to strOutputTypedDict.py for more info ««««««««««««««««««««« 
 
 # note here we don't have any gurantee that data comes with proper vaildations like though we specified summary should be string but it mayu not come as strin g alsp 
 # therfore for that we will use pydantic
 
-# Pydantic -> data validation and data parsing library for python , it ensures data is correct also used in fastapi while building apis 
+# Pydantic -> data validation and data parsing library for python, it ensures data is correct also used in fastapi while building apis 
 # (must study pydantic)
 
 # pydantic gives error if we try to break constraints 
-# pydantic do type conversions means string - 32 ko 32 hi read krega if int type field hai 
+# pydantic do type conversions also means string - 32 ko 32 hi read krega if int type field hai 
 # import EmailStr -> it auto validates email 
 
 # Now lets implement this pydantic learning to strOutputswithTypedDict by replacing typedDict with pydantic 
-
 
 # Json Schema -> used when project is made with multiple languages frontend js, backend python  as json is univeral data format 
 
@@ -63,8 +62,8 @@ print(langchain.__version__)
 # 1) with_structured_output(method)    «««   json mode   (when output reqd in json format )      and         function calling (used when we are calling functions)
 
 # for openAi function calling is mainly used but gemini claud supprts json mode 
-# there are some models -> where no support of json mode and functn mode therefore they can't give structured output 
+# there are some models -2> where no support of json mode and functn mode therefore they can't give structured output 
 
-# recall tinyLama model-> 
+
  
 
