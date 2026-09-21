@@ -87,4 +87,9 @@ print(langchain.__version__)
 
 # Next is jsonOutputParser -> it will ask llm to return resoponse as json format 
 
+# StructuredOutputParser -> here we provide schema to llm and llm returns response based on schema therefore we can enforce schema here 
+
+# PydanticOutputParser -> it is a structruedoutputParser that uses pydantic model to enforce validations on schema when processign llm's response 
+
+# Here during making schema we pass pydantic-object in place of schema in parser 
 
