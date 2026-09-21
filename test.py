@@ -21,7 +21,7 @@ print(langchain.__version__)
 # And we provided structred outputs to llm so that they can now contact with other systems also
 
 
-# LLMs are of 2 types -> 
+# LLMs are of 2 types -> can and can't 
 # 1) Generate By default structred outputs like openAi     «« with_structured_output ««
 # 2) Can't generate     «« output parsers ««  classes which help to structure the unstructured outputs 
 
@@ -65,7 +65,26 @@ print(langchain.__version__)
 # for openAi function calling is mainly used but gemini claud supports json mode 
 
 # there are some models -2> where no support of json mode and functn mode therefore they can't give structured output 
+# here we use output parsers for structured outputs 
 
 
+
+
+# Output Parsers -> classes written in langchain which help to work with any type of llm and produce structured outputs
+# output parsers can work with both type of models  can and can't 
+
+# String output parser 
+# Json output parser 
+# Structured output parser 
+# Pydantic output parser 
  
+#  1) strOutputParser -> Takes response of llm and convert it to string 
+
+# Asking LLM to generate some text on topic blackhole -> then sending whole text to lln and asking to convert it to 5 lines or summarise it 
+# first do it using result.content then stroutputParser 
+
+# first strourputParser.py
+
+# Next is jsonOutputParser -> it will ask llm to return resoponse as json format 
+
 
