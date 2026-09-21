@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from typing import TypedDict, Annotated, Optional, Literal
 
 # Annotated -> It is used to specify extra information without changing actual dataType 
-# Literal is used when we want restrict value to specific keywords 
+# Literal is used when we want to restrict value to specific keywords 
 
 load_dotenv()
 

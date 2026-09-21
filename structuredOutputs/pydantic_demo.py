@@ -9,11 +9,13 @@ class Student(BaseModel):
     cgpa: float = Field(gt=0, lt=10, default=5, description='A decimal value representing the cgpa of the student')
 
 
-new_student = {'age':'32', 'email':'abc@gmail.com'}
+new_student = {'age' : '32', 'email' : 'abc@gmail.com'}
 
 student = Student(**new_student)
 
 student_dict = dict(student)        # converted student to dictionary format 
+# In Pydantic, a dictionary format means the data is represented as Python key-value pairs (dict) and
+# Pydantic validates those keys and values according to the model you define.
 
 print(student_dict['age'])
 

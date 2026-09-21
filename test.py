@@ -11,7 +11,8 @@ print(langchain.__version__)
 # Advantages of structured outputs: 
 # Data Abstraction
 # Api Building, flask and fastapi are used to build api
-# Agents, note ->  chatbox can only talk to us but agents can perform work for us, eg they can calculate complex operations for us 
+
+# Agents, note ->  chatbox can only talk to us but agents can perform work for us, eg: they can calculate complex operations for us. 
   
 
 # LLMs talk to human but don't provide structured outputs they provide just english text that was the reason they were not able to 
@@ -35,7 +36,7 @@ print(langchain.__version__)
 
 # go to strOutputTypedDict.py for more info ««««««««««««««««««««« 
 
-# note here we don't have any gurantee that data comes with proper vaildations like though we specified summary should be string but it mayu not come as strin g alsp 
+# note here we don't have any gurantee that data comes with proper vaildations like though we specified summary should be string but it may not come as string also 
 # therfore for that we will use pydantic
 
 # Pydantic -> data validation and data parsing library for python, it ensures data is correct also used in fastapi while building apis 
@@ -51,9 +52,9 @@ print(langchain.__version__)
 
 # typedDict is used when we only need typed hints and no validations reqd or full project in single language 
 
-# pydantic used when we need data constraints , also we have to send default vlaues but again full project must be single language
+# pydantic used when we need data constraints, also we have to send default vlaues but again full project must be single language
 
-# Json Schema when operating with other languages also , need validations but don't want to import extra python libraries also json provides validations 
+# Json Schema when operating with other languages also, need validations but don't want to import extra python libraries also json provides validations 
 
 # json don't provide default values and auto typeCasting  
 
@@ -61,7 +62,8 @@ print(langchain.__version__)
 # Some things to remember
 # 1) with_structured_output(method)    «««   json mode   (when output reqd in json format )      and         function calling (used when we are calling functions)
 
-# for openAi function calling is mainly used but gemini claud supprts json mode 
+# for openAi function calling is mainly used but gemini claud supports json mode 
+
 # there are some models -2> where no support of json mode and functn mode therefore they can't give structured output 
 
 
