@@ -80,7 +80,7 @@ print(langchain.__version__)
  
 #  1) strOutputParser -> Takes response of llm and convert it to string 
 
-# Asking LLM to generate some text on topic blackhole -> then sending whole text to lln and asking to convert it to 5 lines or summarise it 
+# Asking LLM to generate some text on topic blackhole -> then sending whole text to llm and asking to convert it to 5 lines or summarise it 
 # first do it using result.content then stroutputParser 
 
 
@@ -91,8 +91,35 @@ print(langchain.__version__)
 
 # StructuredOutputParser -> here we provide schema to llm and llm returns response based on schema therefore we can enforce schema here 
 
-# PydanticOutputParser -> it is a structruedoutputParser that uses pydantic model to enforce validations on schema when processign llm's response 
+# PydanticOutputParser -> it is a structruedoutputParser that uses pydantic model to enforce validations on schema when processing llm's response 
 # Here during making schema we pass pydantic-object in place of schema in parser 
 
 
 # There are many more parsers in documentation -> langchain.output.parsers 
+
+
+
+
+
+
+
+
+
+
+
+
+# Lets Start Chains in Langchain
+# Models (done) ---> prompts (done)  ---> structred outputs (done) + output parsers (done) ---> Chains  +  Runnables
+
+# user -- prompt -> llm -> output  -> show to user (all can be done mannualy + by using chains )
+
+# chains can connect all steps and can easily make the pipeline
+
+# Chains can also make different structure of pipelines like parallel, linear, sequential chains
+
+# Lets make our simple chain user-> prompt -> llm -> respone -> user 
+
+# Next is a little complex prompt -> topic -> llm (asking detailed report) -> again passing report to llm and asking 5 summary lines sequential_chain.py
+
+#  Now lets create a parallel chain -> 
+
