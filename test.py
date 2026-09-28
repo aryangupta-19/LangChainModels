@@ -115,11 +115,17 @@ print(langchain.__version__)
 
 # chains can connect all steps and can easily make the pipeline
 
-# Chains can also make different structure of pipelines like parallel, linear, sequential chains
+# Chains can also make different structure of pipelines like linear, parallel, sequential chains
 
 # Lets make our simple chain user-> prompt -> llm -> respone -> user 
 
 # Next is a little complex prompt -> topic -> llm (asking detailed report) -> again passing report to llm and asking 5 summary lines sequential_chain.py
 
-#  Now lets create a parallel chain ->
+#  Now lets create a parallel chain -> user provides text (Explanation of some topic) -> from this generate notes + quiz -> show user combination of both notes and quiz 
+
+# Now lets create a conditional chain -> here user will give some feedback on our product and our model will add sentiments to it -> currently we will only show sentiments back (pos or neg)
+
+# Model will extract whether it is positive or negatice 
+# Now based on sentiment -> we will again send feedback to model and now ask it to generate response accordingly 
+
 

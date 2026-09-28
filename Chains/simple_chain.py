@@ -21,13 +21,12 @@ parser = StrOutputParser()
 # Now linking them all using a chain 
 chain = prompt | model | parser
 
-# At Lst incoke chain using its topic 
+# At Lst invoke chain using its topic 
 result = chain.invoke({'topic':'cricket'})
 
 print(result)
 
 # Now we can also visualise our chain by printing it (use get_graph() and print_ascii() function )
 chain.get_graph().print_ascii()
-
 
 #  Now we will create a little complex chain -> calling llm two times 
