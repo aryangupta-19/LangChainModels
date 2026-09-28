@@ -13,7 +13,7 @@ llm = HuggingFaceEndpoint(
 
 model = ChatHuggingFace(llm=llm)
 
-# First we have to create a schema which guide llm to to produce which kind of output 
+# First we have to create a schema which guide llm to produce which kind of output 
 # note here we create schema with help of ResponseSchema 
 schema = [
     ResponseSchema(name='fact_1', description='Fact 1 about the topic'),

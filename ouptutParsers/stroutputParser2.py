@@ -30,11 +30,11 @@ parser = StrOutputParser()
 # then paass this text to other model as template2 then parse it again where extract only summary ignore all the metadata
 chain = template1 | model | parser | template2 | model | parser
 
-result = chain.invoke({'topic':'black hole'})   # passing out topic
+result = chain.invoke({'topic':'black hole'})   # passing our topic
 
 print(result)   # got same output 
 
 # But this is the much easier way to perform same functionality 
-# here we could have made chain without parser also but but that chain could go only upto model then extraction and other steps whould be explicit
+# Here we could have made chain without parser also but that chain could go only upto model then extraction and other steps whould be explicit
 
 # Therefore this is the main usage of stroutputParsers 

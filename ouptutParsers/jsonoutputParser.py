@@ -14,7 +14,7 @@ model = ChatHuggingFace(llm=llm)
 
 parser = JsonOutputParser()
 
-# Whenever we use this jsonParser, we have to send additional instruction, which tells kind of output reqd from llm, and this instruction is given by parser when using get_format_instructions()
+# Whenever we use this jsonParser, we have to send additional instruction, which tells type of output reqd from llm, and this instruction is given by parser when using get_format_instructions()
 template = PromptTemplate(
     template='Give me 5 facts about {topic} \n {format_instruction}',
     input_variables=['topic'],
@@ -31,4 +31,4 @@ print(result)
 # Note in json format structuring is not possible like here output is directly a list of facts we don't get any proper structrue of output 
 # therefore the biggest drawback is that it can't enforce a schema 
 
-# Therefore to enforce shema we have to use someother parser instead of jsonoutputParser 
+# Therefore to enforce shema we have to use some other parser instead of jsonoutputParser 

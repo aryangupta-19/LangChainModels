@@ -60,11 +60,11 @@ print(langchain.__version__)
 
 
 # Some things to remember
-# 1) with_structured_output(method)    «««   json mode   (when output reqd in json format )      and         function calling (used when we are calling functions)
+# 1) with_structured_output(method)    «««   json mode   (when output reqd in json format)      and         function calling (used when we are calling functions)
 
 # for openAi function calling is mainly used but gemini claud supports json mode 
 
-# there are some models -2> where no support of json mode and functn mode therefore they can't give structured output 
+# there are some models -> where no support of json mode and functn mode therefore they can't give structured output 
 # here we use output parsers for structured outputs 
 
 
@@ -87,7 +87,7 @@ print(langchain.__version__)
 
 # first stroutputParser.py generally used with chains 
 
-# Next is jsonOutputParser -> it will ask llm to return resoponse as json format  can't provide structrued output 
+# Next is jsonOutputParser -> it will ask llm to return resoponse as json format,  can't provide structrued output or can't provide schema to output 
 
 # StructuredOutputParser -> here we provide schema to llm and llm returns response based on schema therefore we can enforce schema here 
 
@@ -121,5 +121,5 @@ print(langchain.__version__)
 
 # Next is a little complex prompt -> topic -> llm (asking detailed report) -> again passing report to llm and asking 5 summary lines sequential_chain.py
 
-#  Now lets create a parallel chain -> 
+#  Now lets create a parallel chain ->
 
