@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-load_dotenv()
+load_dotenv()   # reads .env and sets variable 
 
 # create prompt using prompt template 
 prompt = PromptTemplate(

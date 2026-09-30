@@ -1,5 +1,5 @@
 # Here user will give some feedback on our product and our model will add sentiments to it -> currently we will only show sentiments back (pos or neg)
-# Model will extract whether it is positive or negatice 
+# Model will extract whether it is positive or negative 
 # Now based on sentiment -> we will again send feedback to model and now ask it to generate response accordingly 
 
 # for response two models one for pos sentiment and othewr for neg sentiment -> imp thing is only one of them will run based on sentiment 
@@ -20,7 +20,7 @@ model = ChatOpenAI()
 
 parser = StrOutputParser()
 
-# We had no gurantee that for ("This is phone is terrible") what kind of output will model generate can be either "Positive or negative or Phone is positive or Negative sentiment"
+# We had no gurantee that for ("This phone is terrible") what kind of output will model generate can be either "Positive or negative or Phone is positive or Negative sentiment"
 # So we had no control on stucture of output -> therefore to structure the output we need pydanticOutputParser which is second parser here 
 
 class Feedback(BaseModel):  # class is needed for pydantic

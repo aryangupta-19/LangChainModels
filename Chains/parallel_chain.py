@@ -45,7 +45,7 @@ parallel_chain = RunnableParallel({
     'quiz': prompt2 | model2 | parser   # 2nd Chain -> promp2 -> model -> parser 
 })
 
-# Now create merge chain here pass prompt to any modle 1 or 2 
+# Now create merge chain here pass prompt to any model 1 or 2 
 merge_chain = prompt3 | model1 | parser
 
 # Now combine parallel chain and merge chain before invoking 
