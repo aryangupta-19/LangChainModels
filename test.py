@@ -129,3 +129,43 @@ print(langchain.__version__)
 # Now based on sentiment -> we will again send feedback to model and now ask it to generate response accordingly 
 
 
+
+
+
+
+
+# Runnables in Langchain
+
+# Runnables -> first note langchain is a framework used to contact different llm apis or models of different companies like gemini, claud, openchat, grok.
+
+# Pdf-reader : pdf load -> split -> embed -> vector -> kernel -> llm -> parse.
+
+# Till now we were manually creating prompt then manually pass prompt to llm and get reponse
+# Now we are able to make chains -> joins 2 or more components 
+# and most simplest chain is called as langchain -> llmchain here it will take prompt pass it to model and then give result in return.
+
+# Retrival -> user-query -> search in vector database -> gives relevant text -> now make new prompt using relevant text and query => llm -> ans      This task is placed in all rag application s
+
+# similarly langchain also created chain for Retrivals which are again and again used in rag, now this chain will ask for llm and retriver -> retriverQA chain
+
+# overtime made too many chains -> which made it codebase such larger 
+# now langchain had to make all components again so that all new components are standardised and can connect to eachother seamlessly and it is possible only with help of runnables 
+
+
+# Runnable -> It is a unit of work, each runnale have some purpose -> takes input process it and gives output 
+
+# -> Each runnable follows a common interface (each runnable have same set of methods)  eg: invoke(), batch() takes multiple inputs and gives multiple outputs, stream() gives streaming o/p
+
+# -> We can connect all the runnables and can easily peroform complex functions also
+
+# If we connect 2 runnables R1 and R2 then output of r1 will work as input of r2 and it goes on 
+
+# -> Whenever we connect runnabels to make a workflow, the workflow made is also a runnable and can be connected to other runnables.
+
+
+
+
+
+
+
+
