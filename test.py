@@ -9,9 +9,9 @@ print(langchain.__version__)
 # structured -> gives data in a well defined fromat eg: json,  more infomative not only english response 
 
 # Advantages of structured outputs: 
-# Data Abstraction
+# Data Abstraction -> Showing only the essential information to the user while hiding the unnecessary implementation details.
 # Api Building, flask and fastapi are used to build api
-
+    
 # Agents, note ->  chatbox can only talk to us but agents can perform work for us, eg: they can calculate complex operations for us. 
   
 
