@@ -397,3 +397,56 @@ chain2.invoke('response': 'This is a Joke')
 
 final_chain = RunnableConnector(chain1, chain2)
 final_chain.invoke({'topic': 'Cricket'})
+
+
+# Runnables -> 2 types -> task specific and primitive runnables 
+
+# Task specific Runnables -> Core langchain components jinko hamne runnable mai convert kiya thha so that they can be used in pipelines  eg: chatOpenAi(), Retrival()
+
+# Runnable primitves -> These are runnables jo dusre task speicif runnables ko connect krte hai 
+# hamare nakliLLm nakliPromptTemplate yeh sb hai task runnable and then runnableConnector thha ik vo taskSpecific runnables ko connect kr rha thha therfore it was primitive runnable 
+
+# Now we will study Runnable Primitives 
+# 1st -> Runnable Sequence : connect two or more runnables sequentially into chains first's output = input of second (humara runnableConector yahi hai)
+
+# lets generate a joke from a prompt 
+
+# 2nd -> Runnable Parallels :Help to make parallel chains 
+
+# topic ->  goes into  2 llms -> llm1 -> generate tweet on topic 
+#                                     |
+# #                                   Generate a linkedin post on topic 
+#  both llm get same input but generate different output 
+
+
+# 3rd -> Runnable pass through -> jo input diya usi ko as it is output mai dedeta hai 
+
+# 4th -> Runnable lambda -> can convert any python function to runnable -> now this function can make chain with other runnables 
+# lets suppose 
+# company database -> reviews -> llm -> tells sentiment 
+# Realised reviews are not much clean they involve emojis, punctuations, smilies but ideally we should send clean data to llm 
+# so create a function where we can do pre-processign -> remove emojis punctuations etc 
+# now convert this function to a runnable using runnablee lambda now we can directly connect its output to llm runnable then parser 
+
+
+# Runnable branch 
+# used to make conditionals chains -> ifelse for langchain
+
+
+# LCEL -> Langchain Expression Language 
+# note runnable sequence is used mostly in all cases -> therefore langchain reduced its structure 
+
+# so now we can use pipe operator to write sequence 
+# [r1 | r2 | r3 | r4]   runnable sequence can be wriiten using LCEL also 
+
+
+
+
+
+
+
+
+
+
+
+# Now we will move towards Rag implementations
