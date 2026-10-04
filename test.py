@@ -451,3 +451,42 @@ final_chain.invoke({'topic': 'Cricket'})
 
 
 # Now we will move towards Rag implementations
+# Build Rag based application using langchain
+
+# WE have already covered -> models prompts chains and runnables 
+
+# RAG -> technique that combines info retrival with language generation -> where a model retrives relavent docuement from a knowledge base and then uses them as context to generate accurate and grounded response 
+
+# In rag without uploading our document we can retrive data (privacy)
+# No limit of document size  
+
+# Now first we will study components of Rag-> document loaders , text splitters , vector databases , Retrivers 
+
+ 
+#  In langchain we have 100s of document-loaders -> we will study mostly used document loaders -> TextLoader, PyPdfLoader, webLoader, CSVLoader
+
+# Document Loaders -> data can be in different sources like pdf text cloud etc and we have to ensure that data come from any source , it should come in a specific format 
+# here documets ke form mai ata hai in standardized form 
+
+# Text-loader -> simplest loader converts text file into document object 
+
+# Now lets use PyPdfLoader -> reads pdf files and converts it into documents 
+# goes page by page in pdf and create document for each page 
+
+# pyPdf uses internally PyPdf library to read pdf files -> simple files ke liye hai -> scanned pdf ke liye alag document-loaders hai 
+
+# learnt -> how to load single text file or a pdf file -> but for multiple pdf or text files we will use directory_loader 
+  
+
+# WebBaseLoader -> Can load and extract content from a webPage, Internally uses 2 python libraries,  Request -> hhtp req to webpage and BeautifulSoup -> understands html structure and c onverts to text format 
+# Works good with static webPages (html-heavy)
+# SelniumURLoader -> works with js heavy also very vell 
+
+
+# CSV LOADER -> Document Loader used to load csv files in langchain so that langchain can ask question to it 
+# CSV = Comma-Separated Values.
+# It makes document object for each row 
+
+
+# We can also make custom document loaders -> where we will decide how load and lazy_load will work 
+
