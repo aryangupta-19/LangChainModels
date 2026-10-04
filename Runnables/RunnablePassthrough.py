@@ -27,13 +27,13 @@ prompt2 = PromptTemplate(
     input_variables=['text']
 )
 
-joke_gen_chain = RunnableSequence(prompt1, model, parser)
+joke_gen_chain = RunnableSequence(prompt1, model, parser)    # first generating joke 
 
 parallel_chain = RunnableParallel({
-    'joke': RunnablePassthrough(),
-    'explanation': RunnableSequence(prompt2, model, parser)
+    'joke': RunnablePassthrough(),       # gives joke as it is 
+    'explanation': RunnableSequence(prompt2, model, parser)     # Creates explaination of the joke 
 })
 
-final_chain = RunnableSequence(joke_gen_chain, parallel_chain)
+final_chain = RunnableSequence(joke_gen_chain, parallel_chain)  # connecting both 
 
 print(final_chain.invoke({'topic':'cricket'}))

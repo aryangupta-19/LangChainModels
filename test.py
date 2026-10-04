@@ -404,7 +404,7 @@ final_chain.invoke({'topic': 'Cricket'})
 # Task specific Runnables -> Core langchain components jinko hamne runnable mai convert kiya thha so that they can be used in pipelines  eg: chatOpenAi(), Retrival()
 
 # Runnable primitves -> These are runnables jo dusre task speicif runnables ko connect krte hai 
-# hamare nakliLLm nakliPromptTemplate yeh sb hai task runnable and then runnableConnector thha ik vo taskSpecific runnables ko connect kr rha thha therfore it was primitive runnable 
+# hamare nakliLLm nakliPromptTemplate yeh sb hai task runnable and then runnableConnector thha vo taskSpecific runnables ko connect kr rha thha therfore it was primitive runnable 
 
 # Now we will study Runnable Primitives 
 # 1st -> Runnable Sequence : connect two or more runnables sequentially into chains first's output = input of second (humara runnableConector yahi hai)
@@ -421,12 +421,13 @@ final_chain.invoke({'topic': 'Cricket'})
 
 # 3rd -> Runnable pass through -> jo input diya usi ko as it is output mai dedeta hai 
 
-# 4th -> Runnable lambda -> can convert any python function to runnable -> now this function can make chain with other runnables 
+# 4th -> Runnable lambda -> can convert any python function to runnable -> now this function can make chain with other runnables.
+
 # lets suppose 
 # company database -> reviews -> llm -> tells sentiment 
 # Realised reviews are not much clean they involve emojis, punctuations, smilies but ideally we should send clean data to llm 
 # so create a function where we can do pre-processign -> remove emojis punctuations etc 
-# now convert this function to a runnable using runnablee lambda now we can directly connect its output to llm runnable then parser 
+# now convert this function to a runnable using runnable lambda now we can directly connect its output to llm runnable then parser 
 
 
 # Runnable branch 

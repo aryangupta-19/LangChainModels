@@ -1,4 +1,4 @@
-# lets fo with joke example again 
+# lets go with joke example again 
 # topic -> generate joke -> now diring joke printing (print total no. of joke words also) and generally llms are not good in this work of counting words so,
 # first create prompt -> llm -> output -> parser -> now create a parallel chain 
 
@@ -14,8 +14,8 @@ from langchain.schema.runnable import RunnableSequence, RunnableLambda, Runnable
 
 load_dotenv()
 
-def word_count(text):
-    return len(text.split())
+def word_count(text):       # function to count no. of words and willbe converted to runnable using runnable lambda 
+    return len(text.split())    # split will break the string on the basis of space and length will count total parts now
 
 # runnable_word_counter = RunnableLambda(word_counter)
 # print(runnable_word_counter.invoke("Hii, I am Aryan"))
@@ -29,14 +29,14 @@ model = ChatOpenAI()
 
 parser = StrOutputParser()
 
-joke_gen_chain = RunnableSequence(prompt, model, parser)
+joke_gen_chain = RunnableSequence(prompt, model, parser) # Creating joke here 
 
 parallel_chain = RunnableParallel({
-    'joke': RunnablePassthrough(),
-    'word_count': RunnableLambda(word_count)
-})
+    'joke': RunnablePassthrough(),      # to print joke as it is 
+    'word_count': RunnableLambda(word_count)    # to count no. of words in joke 
+})  
 
-final_chain = RunnableSequence(joke_gen_chain, parallel_chain)
+final_chain = RunnableSequence(joke_gen_chain, parallel_chain)  # connect joke generation with parallel chain 
 
 result = final_chain.invoke({'topic':'AI'})
 
