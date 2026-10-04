@@ -490,3 +490,43 @@ final_chain.invoke({'topic': 'Cricket'})
 
 # We can also make custom document loaders -> where we will decide how load and lazy_load will work 
 
+
+
+# Lets go with Text Splitters  -> If we have a large pdf (1000s of pages) -> it becomes to difficult to process this large pdf -> so we break it into chunks so that we can process small amount of data
+# Articles, html , pdf, books -> break into chunks and then feed to llm -> reason -> llm has its own context length -> tells how much words or tokens llm can process at a time 
+
+# reason 2 -> Text splitting gives best result in Embedding (converting text into vectors) , Semantic search -> query matching in vector embeddings (chunking again gives more precise searching), Summarization -> llm are great with chunks in summarization also
+#  Optimise computational resources -> more memory efficient, parallel execution etc. 
+ 
+# Length Based, Text Structure Based, Document Structure Based, Semantic Meaning Based.
+
+# 1) Length Based Text Splitting -> phle se decide krlo chunks ka size kya hoga eg: 100 chars (simplest way), works faster
+# DrawBack -> don't check linguistic structrue, grammar and semantic structure during text splitting -> some times it stops in between a word 
+
+
+# 2) Text Structrue Based -> It says all texts follows some structure inheritly -> like paragraph wise text , then in paragraphs sentences , then in sentences words 
+# We will study Reccurssive Character Text splitting (mostly used).
+# Isme hum phle se seperators define krlete hai 
+# eg: \n\n for paragraph , \n for line change, ' ' for spaces in words , '' chars.
+
+# Recurssive -> First tries on the basis of paragraph then sentences then words then characters. 
+# Yahan yeh words ko middle se split ne krta hierarchi may jata hai phle paragraph wise break if size greate than chunk size 
+# then statement wise break again if size greater 
+# then break words wise 
+# if at any stage size goes lesser than chunk size it stops and make chunks so it can also make chunks whose length is less than decided chunk size so it avoides text splitting fromm middle 
+# at last if chunk size is verysmall it will break on the basis of characters 
+
+
+# Document-Structure Based
+# When we have different type of texts -> like no proper hindi or no proper english but like a oops code file where we have calsses methods functions etc.
+
+# Here it is not organised in paragraphs, sentences but in classes, functions etc 
+# Again here we will use reccurssive text splitter but seprators are of different types :
+# \nclass, \ndef, \n\tdef then normal \n\n, \n, " " "" .
+
+# Same thing can also be applied to markdown text.
+
+
+# There are some scenerios where both length_based and document-structure based text splitters fails eg: same paragraph mai different context ki battien hui hai 
+# Semantic Meaning Based -> idea -> decision making is not based on length or structure but on semantic meaning 
+# Semantic meaning -> tries to understand meaning of text and then tries to split on basis of meaning difference.
