@@ -687,3 +687,98 @@ vector_store.delete(ids=['09a39dc6-3ba6-4ea7-927e-fdda591da5e4'])
 
 
 # Retrivers in LangChain (IMP)
+
+# It is a component in langchain that fetches relavent documents from a databse in response to a user's query
+
+# {Data Source}  <--  Retriver (input -> user query)   --> document (output of retriever)
+#                           |
+#                          query
+
+# There are multiple retrievers in langchain for different usecases 
+# All retrievers are runnables (therefore they can be chainned and also pushed in existing chains)
+
+# Types of Retrievers based on Data sources 
+
+# Wikipedia Retriever -> Searches query on wikipedia 
+# Vector store based retrievers -> Searches in vector databased 
+# Archive Retriever -> Searches on Archive web-page.
+
+# Types of Retrievers based on Search strategy
+
+# MMR (Maximum Marginal Relevence)
+# Multi-query Retriever 
+# and more 
+
+# Wikipedia Retriever: It is a retriever that queries wikipedia api to fetch content based on given query 
+# sends query to wikipedia - api ---> retrieves most relevant articles ---> return them as langchain document objects 
+# relevance is based on text matching 
+
+
+retriever = WikipediaRetriever(top_k_results=2, lang="en")
+
+# Define your query
+query = "the geopolitical history of india and pakistan from the perspective of a chinese"
+
+# Get relevant Wikipedia documents
+docs = retriever.invoke(query)      # Invoke function also shows retriever is a runnable 
+
+# This retriever doesnot load all articles of wikipedia and it performs searching in between and bring out only relavent documents.
+
+
+
+# Vector store Retriever -> brings relavent documents from vector store (most common) based on semantic searching 
+# documents stored in vector store (chroma) -> Each vector is converted to dense model using embedding model -->> user gives query -> query-> vector -> compare with available vectors and do semantic search 
+
+from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings
+from langchain_core.documents import Document
+
+# Step 1: Your source documents
+documents = [
+    Document(page_content="LangChain helps developers build LLM applications easily."),
+    Document(page_content="Chroma is a vector database optimized for LLM-based search."),
+    Document(page_content="Embeddings convert text into high-dimensional vectors."),
+    Document(page_content="OpenAI provides powerful embedding models."),
+]
+
+# Step 2: Initialize embedding model
+embedding_model = OpenAIEmbeddings()
+
+# Step 3: Create Chroma vector store in memory
+vectorstore = Chroma.from_documents(
+    documents=documents,
+    embedding=embedding_model,
+    collection_name="my_collection"
+)
+
+# Step 4: Convert vectorstore into a retriever
+retriever = vectorstore.as_retriever(search_kwargs={"k": 2})        # created retriever object , search_kwargs={"k": 2} tells how much responses we want 
+
+query = "What is Chroma used for?"
+results = retriever.invoke(query)
+
+for i, doc in enumerate(results):
+    print(f"\n--- Result {i+1} ---")
+    print(doc.page_content)
+
+# Remember same chiz hamne vectorSearch mai bhi kari thhi using similarity search why do we need retriver for that , becoz vector store searches only on the basis of one strategy, 
+# And using retriever we can use different strategies for searching.
+
+# Till now we only learnt simple retriever that's why we are not able to see difference, but we have other good retrievers also they can provide advanceed search strategies.
+    
+results = vectorstore.similarity_search(query, k=2)     
+
+for i, doc in enumerate(results):
+    print(f"\n--- Result {i+1} ---")
+    print(doc.page_content)
+    
+
+# Retrievers based on retrival strategy 
+
+#  MMR -> maximum marginal relevance
+
+# See problem faced by Programmars in MMR_PROB
+# MMR solves this problem of redundancy -> How can we pick the result that are relavent to search query and different from eachother 
+
+# Many times same info repeats -> MMR Reduces this problem -> next document is relavent + dissimilar to previous one 
+
