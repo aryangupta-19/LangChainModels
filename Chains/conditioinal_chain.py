@@ -57,7 +57,7 @@ branch_chain = RunnableBranch(
     # (condition, chain)
     (lambda x: x.sentiment == 'positive', prompt2 | model | parser),      # function getting input x (which is response +ve or -ve) and if x is +ve chain -> prompt2->model->parser
     (lambda x: x.sentiment == 'negative', prompt3 | model | parser),      # function getting input x (which is response +ve or -ve) and if x is -ve chain -> prompt3->model->parser
-    RunnableLambda(lambda x: "could not find sentiment")   # Default chain but we have to create runnableLambda here becoz (lambda x: "could not find sentiment") is not chain but we have to execute a chain
+    RunnableLambda(lambda x: "could not find sentiment")   # Default chain but we have to create runnableLambda here becoz (lambda x: "could not find sentiment") is not chain but we have to execute as a chain
 )
 # RunnableLambda -> converts lambda function to runnable and if converted into runnable then we can use it as a chain 
 

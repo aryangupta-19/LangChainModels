@@ -415,11 +415,11 @@ final_chain.invoke({'topic': 'Cricket'})
 
 # topic ->  goes into  2 llms -> llm1 -> generate tweet on topic 
 #                                     |
-# #                                   Generate a linkedin post on topic 
+#                                    Generate a linkedin post on topic 
 #  both llm get same input but generate different output 
 
 
-# 3rd -> Runnable pass through -> jo input diya usi ko as it is output mai dedeta hai 
+# 3rd -> RunnablePassthrough -> jo input diya usi ko as it is output mai dedeta hai 
 
 # 4th -> Runnable lambda -> can convert any python function to runnable -> now this function can make chain with other runnables.
 
@@ -530,3 +530,160 @@ final_chain.invoke({'topic': 'Cricket'})
 # There are some scenerios where both length_based and document-structure based text splitters fails eg: same paragraph mai different context ki battien hui hai 
 # Semantic Meaning Based -> idea -> decision making is not based on length or structure but on semantic meaning 
 # Semantic meaning -> tries to understand meaning of text and then tries to split on basis of meaning difference.
+
+
+
+
+
+
+
+# Vector Stores in Langchain (very Important): Need 
+
+# See in our FilFinder if someone is exploring some movie at last we can also show him a listing of similar movies to increase his engagemen on our website
+# Now How to find movies which are similar to it for that we will use keyword matching -> like we can match generes , actors , Directors etc 
+
+# If all these keywords matches, this means both movies are similar so we can add it to list of similar movies 
+
+# but many times same actors directors do different storyline ki movies banate hai so yeh ik drawback hai 
+# also some times alag alag actors directors genre ki movie with similar storyline hai toh yeh unko relate hi nai krpayga (drawback)
+
+# So To make a better approach -> how to predict two movies are similar or not 
+
+# We should compare plot of two movies here we will check storyline matchup. 
+# But here we need plot of each movie -> find using apis or web scrapping.
+# Now once we find all plots we have to make a system which will compare two plots and generate a similarity score -> higher the score higher is similarity
+
+# But two text pieces ke semantic meaning ko compare karna hai -> very difficult   -> solved by deep learning 
+# 
+# Embeddings -> Technique which helps to represent semantic meaning of some text into numbers (vectors) 
+# so we will create embedding vectors of each movie plot 
+# Then finding similarities in numbers is easy 
+# concept -> lets say vector embeddings generated for different plots are m1, m2, m3, m4 --- and so on 
+
+# Now we will try to plot it in a cordinate system using vectors and try to finding angular distance in between -> so two vectors which have minimum relative angular distance will be identified as similar.
+
+# Drawbacks  
+# We have lakhs of movies -> so we have to create embeddin vector for each movie 
+# storage -> we need proper storage for embedding vectors and main problem is we can't store embeddings vector in normal sql databases -> becoz if we store it there -> relational databases don't provide us comparisons features.
+# Semantic Search -> We need similarities so we have to find cosine similarities -> also if we start comparing m1 with all other (lakhs) vectors it will take a lot of time and application will be slow -> so find smart way to reduce no. of camparisons.
+
+# These 3 challenges are solved by vector stores.
+
+
+
+# Vector store -> System designed to store and retrieve data represented as numerical vectors.
+
+# 4 key features 
+# 1) Storage -> vectors and associated metadata are reatained , vector stores gives 2 storage -> in Memory(ram) application off krne pr gayab or on disk (hard-drive) (consistant application reopen mai bhi chi rhenge)
+# 2) Similarity Search -> We can compare given query vector with all available vectors 
+# 3) Indexing -> Generally used to optimse searching -> Enables fast similarity searches on high dimential vectors.
+# 4) CRUD Operations -> addign  new vectors , retrieve , delete etc 
+
+# Indexing -> one way 
+# lets suppse we have 10 lakh vector in vector store -> then it will make 10 clusters each containing one lakh vectors -> then it will find avg of each cluster at last it will get centroid of each cluster 
+# now it will calculate similarity score of query vector and compare it with available clustre's centroid and easily find similar cluster then search in cluster -> therefore 10 lakh comparisons reduced to 1 lakh comparisons 
+# This was the one way, there are a lot of another ways also.
+
+
+# Usecases -> Recommendation system , Rag , Semantic Search , Image/Multimedia Searching
+
+# Vector store -> storage + Retrivals (Similarity search)
+# Now if we add other database features to vector store like -> Acid properties , Backups , Authentication, concurrency etc it will be a vector database. eg: qdrant, Pinecone
+# In production Environment mostly databases are used.
+
+# A vector database is afterall a vector store with extra features. but vice versa is not true
+
+
+
+# Vector stores in Langchain:
+# In langchain for all vector stores we have built-in components and all are designed on common interfaces eg we can easily replace FAISS with Chroma in future.
+
+
+# Chroma DB-> It is a lightweight open-source vector databse that is friendly for local development and medium - scale production 
+# Chroma can come between a vector store and vector databse (it have only few features of db features)
+
+# check hierarchy of chroma db
+# Tenant -> user creates multiple databses -> creates collections -> store multiple docs -> contains embedding vector + metadata of vector 
+
+# Now we will code in google colab 
+# first install all libraries 
+
+
+from langchain.schema import Document
+
+# Create LangChain documents for IPL players
+
+doc1 = Document(
+        page_content="Virat Kohli is one of the most successful and consistent batsmen in IPL history. Known for his aggressive batting style and fitness, he has led the Royal Challengers Bangalore in multiple seasons.",
+        metadata={"team": "Royal Challengers Bangalore"}
+    )
+doc2 = Document(
+        page_content="Rohit Sharma is the most successful captain in IPL history, leading Mumbai Indians to five titles. He's known for his calm demeanor and ability to play big innings under pressure.",
+        metadata={"team": "Mumbai Indians"}
+    )
+doc3 = Document(
+        page_content="MS Dhoni, famously known as Captain Cool, has led Chennai Super Kings to multiple IPL titles. His finishing skills, wicketkeeping, and leadership are legendary.",
+        metadata={"team": "Chennai Super Kings"}
+    )
+doc4 = Document(
+        page_content="Jasprit Bumrah is considered one of the best fast bowlers in T20 cricket. Playing for Mumbai Indians, he is known for his yorkers and death-over expertise.",
+        metadata={"team": "Mumbai Indians"}
+    )
+doc5 = Document(
+        page_content="Ravindra Jadeja is a dynamic all-rounder who contributes with both bat and ball. Representing Chennai Super Kings, his quick fielding and match-winning performances make him a key player.",
+        metadata={"team": "Chennai Super Kings"}
+    )
+
+
+vector_store = Chroma(      # Creates new chroma db -> and sqlite3 file will be created where everything stores 
+    embedding_function=OpenAIEmbeddings(),
+    persist_directory='my_chroma_db',
+    collection_name='sample'
+)
+
+
+
+# add documents
+vector_store.add_documents(docs)
+# For each document id is also generated 
+
+vector_store.get(include=['embeddings','documents', 'metadatas']) # To check documents in vector db
+
+# search documents
+vector_store.similarity_search(
+    query='Who among these are a bowler?',
+    k=2
+)
+
+# search with similarity score  -> with each result, we will get score -> lesser score more similar as it is distance (representation) 
+vector_store.similarity_search_with_score(
+    query='Who among these are a bowler?',
+    k=2
+)
+
+# meta-data filtering   -> Adding filters on meta-data
+vector_store.similarity_search_with_score(
+    query="",
+    filter={"team": "Chennai Super Kings"}
+)
+
+
+# update documents
+updated_doc1 = Document(
+    page_content="Virat Kohli, the former captain of Royal Challengers Bangalore (RCB), is renowned for his aggressive leadership and consistent batting performances. He holds the record for the most runs in IPL history, including multiple centuries in a single season. Despite RCB not winning an IPL title under his captaincy, Kohli's passion and fitness set a benchmark for the league. His ability to chase targets and anchor innings has made him one of the most dependable players in T20 cricket.",
+    metadata={"team": "Royal Challengers Bangalore"}
+)
+
+vector_store.update_document(document_id='09a39dc6-3ba6-4ea7-927e-fdda591da5e4', document=updated_doc1)\
+
+# delete document
+vector_store.delete(ids=['09a39dc6-3ba6-4ea7-927e-fdda591da5e4'])
+
+
+
+
+
+
+
+
+# Retrivers in LangChain (IMP)

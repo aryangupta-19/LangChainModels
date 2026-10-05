@@ -21,7 +21,7 @@ model = ChatOpenAI()
 parser = StrOutputParser()
 
 parallel_chain = RunnableParallel({
-    'tweet': RunnableSequence(prompt1, model, parser),
+    'tweet': RunnableSequence prompt1 | model | parser,  # LCEL FORMAT 
     'linkedin': RunnableSequence(prompt2, model, parser)
 })
 

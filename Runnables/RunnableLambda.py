@@ -40,7 +40,7 @@ final_chain = RunnableSequence(joke_gen_chain, parallel_chain)  # connect joke g
 
 result = final_chain.invoke({'topic':'AI'})
 
-final_result = """{} \n word count - {}""".format(result['joke'], result['word_count'])
-# Joke nextline word count 
+final_result = """{} \n word count - {}""".format(result['joke'], result['word_count'])     
+# Joke nextline word_count 
 
 print(final_result)
