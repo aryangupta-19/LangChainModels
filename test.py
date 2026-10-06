@@ -455,20 +455,20 @@ final_chain.invoke({'topic': 'Cricket'})
 
 # WE have already covered -> models prompts chains and runnables 
 
-# RAG -> technique that combines info retrival with language generation -> where a model retrives relavent docuement from a knowledge base and then uses them as context to generate accurate and grounded response 
+# RAG -> Technique that combines info-retrival with language generation -> where a model retrives relavent docuement from a knowledge base and then uses them as context to generate accurate and grounded response 
 
 # In rag without uploading our document we can retrive data (privacy)
 # No limit of document size  
 
-# Now first we will study components of Rag-> document loaders , text splitters , vector databases , Retrivers 
+# Now first we will study components of Rag-> document-loaders, text-splitters, vector-databases, Retrivers 
 
  
-#  In langchain we have 100s of document-loaders -> we will study mostly used document loaders -> TextLoader, PyPdfLoader, webLoader, CSVLoader
+#  In langchain we have 100s of document-loaders -> we will study mostly-used document loaders -> TextLoader, PyPdfLoader, webLoader, CSVLoader
 
-# Document Loaders -> data can be in different sources like pdf text cloud etc and we have to ensure that data come from any source , it should come in a specific format 
-# here documets ke form mai ata hai in standardized form 
+# Document Loaders -> Data can be in different sources like pdf, text, cloud etc and we have to ensure that data can come from any source but it should be in a specific format. 
+# Here documets ke form mai ata hai in standardized form 
 
-# Text-loader -> simplest loader converts text file into document object 
+# Text-loader -> simplest loader converts text file into document object. 
 
 # Now lets use PyPdfLoader -> reads pdf files and converts it into documents 
 # goes page by page in pdf and create document for each page 
@@ -478,7 +478,7 @@ final_chain.invoke({'topic': 'Cricket'})
 # learnt -> how to load single text file or a pdf file -> but for multiple pdf or text files we will use directory_loader 
   
 
-# WebBaseLoader -> Can load and extract content from a webPage, Internally uses 2 python libraries,  Request -> hhtp req to webpage and BeautifulSoup -> understands html structure and c onverts to text format 
+# WebBaseLoader -> Can load and extract content from a webPage, Internally uses 2 python libraries,  Request -> hhtp req to webpage and BeautifulSoup -> understands html structure and converts to text format 
 # Works good with static webPages (html-heavy)
 # SelniumURLoader -> works with js heavy also very vell 
 
@@ -495,10 +495,10 @@ final_chain.invoke({'topic': 'Cricket'})
 # Lets go with Text Splitters  -> If we have a large pdf (1000s of pages) -> it becomes to difficult to process this large pdf -> so we break it into chunks so that we can process small amount of data
 # Articles, html , pdf, books -> break into chunks and then feed to llm -> reason -> llm has its own context length -> tells how much words or tokens llm can process at a time 
 
-# reason 2 -> Text splitting gives best result in Embedding (converting text into vectors) , Semantic search -> query matching in vector embeddings (chunking again gives more precise searching), Summarization -> llm are great with chunks in summarization also
+# reason2 -> Text splitting gives best result in Embedding (converting text into vectors) , Semantic search -> query matching in vector embeddings (chunking again gives more precise searching), Summarization -> llm are great with chunks in summarization also
 #  Optimise computational resources -> more memory efficient, parallel execution etc. 
  
-# Length Based, Text Structure Based, Document Structure Based, Semantic Meaning Based.
+# Length_Based, Text_Structure_Based, Document_Structure_Based, Semantic_Meaning_Based.
 
 # 1) Length Based Text Splitting -> phle se decide krlo chunks ka size kya hoga eg: 100 chars (simplest way), works faster
 # DrawBack -> don't check linguistic structrue, grammar and semantic structure during text splitting -> some times it stops in between a word 
@@ -510,10 +510,10 @@ final_chain.invoke({'topic': 'Cricket'})
 # eg: \n\n for paragraph , \n for line change, ' ' for spaces in words , '' chars.
 
 # Recurssive -> First tries on the basis of paragraph then sentences then words then characters. 
-# Yahan yeh words ko middle se split ne krta hierarchi may jata hai phle paragraph wise break if size greate than chunk size 
+# Yahan yeh words ko middle se split nni krta, hierarchy may jata hai phle paragraph wise break if size greater than chunk size 
 # then statement wise break again if size greater 
 # then break words wise 
-# if at any stage size goes lesser than chunk size it stops and make chunks so it can also make chunks whose length is less than decided chunk size so it avoides text splitting fromm middle 
+# if at any stage, size goes lesser than chunk size it stops and make chunks so it can also make chunks whose length is less than decided chunk size so it avoides text splitting fromm middle 
 # at last if chunk size is verysmall it will break on the basis of characters 
 
 
@@ -521,13 +521,13 @@ final_chain.invoke({'topic': 'Cricket'})
 # When we have different type of texts -> like no proper hindi or no proper english but like a oops code file where we have calsses methods functions etc.
 
 # Here it is not organised in paragraphs, sentences but in classes, functions etc 
-# Again here we will use reccurssive text splitter but seprators are of different types :
+# Again here we will use reccurssive_text_splitter but seprators are of different types:
 # \nclass, \ndef, \n\tdef then normal \n\n, \n, " " "" .
 
 # Same thing can also be applied to markdown text.
 
 
-# There are some scenerios where both length_based and document-structure based text splitters fails eg: same paragraph mai different context ki battien hui hai 
+# There are some scenerios where both length_based and document-structure_based text splitters fails eg: same paragraph mai different context ki battien hui hai, toh uss paragraph ko break kro into 2 different paragraphas 
 # Semantic Meaning Based -> idea -> decision making is not based on length or structure but on semantic meaning 
 # Semantic meaning -> tries to understand meaning of text and then tries to split on basis of meaning difference.
 
@@ -537,24 +537,24 @@ final_chain.invoke({'topic': 'Cricket'})
 
 
 
-# Vector Stores in Langchain (very Important): Need 
-
-# See in our FilFinder if someone is exploring some movie at last we can also show him a listing of similar movies to increase his engagemen on our website
+# Vector Stores in Langchain (very Important):
+# 
+# Need 
+# See in our FilFinder if someone is exploring some movie at last we can also show him a listing of similar movies to increase his engagement on our website
 # Now How to find movies which are similar to it for that we will use keyword matching -> like we can match generes , actors , Directors etc 
 
 # If all these keywords matches, this means both movies are similar so we can add it to list of similar movies 
 
 # but many times same actors directors do different storyline ki movies banate hai so yeh ik drawback hai 
-# also some times alag alag actors directors genre ki movie with similar storyline hai toh yeh unko relate hi nai krpayga (drawback)
+# also some times alag-alag actors, directors, genre ki movie with similar storyline hai toh yeh unko relate hi nai krpayga (drawback)
 
-# So To make a better approach -> how to predict two movies are similar or not 
-
+# So To make a better approach -> how to predict two movies are similar or not:
 # We should compare plot of two movies here we will check storyline matchup. 
 # But here we need plot of each movie -> find using apis or web scrapping.
 # Now once we find all plots we have to make a system which will compare two plots and generate a similarity score -> higher the score higher is similarity
 
 # But two text pieces ke semantic meaning ko compare karna hai -> very difficult   -> solved by deep learning 
-# 
+
 # Embeddings -> Technique which helps to represent semantic meaning of some text into numbers (vectors) 
 # so we will create embedding vectors of each movie plot 
 # Then finding similarities in numbers is easy 
@@ -563,23 +563,21 @@ final_chain.invoke({'topic': 'Cricket'})
 # Now we will try to plot it in a cordinate system using vectors and try to finding angular distance in between -> so two vectors which have minimum relative angular distance will be identified as similar.
 
 # Drawbacks  
-# We have lakhs of movies -> so we have to create embeddin vector for each movie 
+# We have lakhs of movies -> so we have to create embeddings vector for each movie 
 # storage -> we need proper storage for embedding vectors and main problem is we can't store embeddings vector in normal sql databases -> becoz if we store it there -> relational databases don't provide us comparisons features.
-# Semantic Search -> We need similarities so we have to find cosine similarities -> also if we start comparing m1 with all other (lakhs) vectors it will take a lot of time and application will be slow -> so find smart way to reduce no. of camparisons.
+# Semantic Search -> We need similarities so we have to find cosine similarities -> also if we start comparing m1 with all other (lakhs) vectors it will take a lot of time and application will be very slow -> so find smart way to reduce no. of camparisons.
 
 # These 3 challenges are solved by vector stores.
-
-
 
 # Vector store -> System designed to store and retrieve data represented as numerical vectors.
 
 # 4 key features 
-# 1) Storage -> vectors and associated metadata are reatained , vector stores gives 2 storage -> in Memory(ram) application off krne pr gayab or on disk (hard-drive) (consistant application reopen mai bhi chi rhenge)
-# 2) Similarity Search -> We can compare given query vector with all available vectors 
+# 1) Storage -> vectors and associated metadata are reatained, vector stores gives us 2 storages -> in Memory(ram) application off krne pr gayab or on disk (hard-drive) (consistant application reopen mai bhi chi rhenge)
+# 2) Similarity Search -> We can compare given query vector with all available vectors. 
 # 3) Indexing -> Generally used to optimse searching -> Enables fast similarity searches on high dimential vectors.
 # 4) CRUD Operations -> addign  new vectors , retrieve , delete etc 
 
-# Indexing -> one way 
+# Indexing -> one-way 
 # lets suppse we have 10 lakh vector in vector store -> then it will make 10 clusters each containing one lakh vectors -> then it will find avg of each cluster at last it will get centroid of each cluster 
 # now it will calculate similarity score of query vector and compare it with available clustre's centroid and easily find similar cluster then search in cluster -> therefore 10 lakh comparisons reduced to 1 lakh comparisons 
 # This was the one way, there are a lot of another ways also.
@@ -596,10 +594,9 @@ final_chain.invoke({'topic': 'Cricket'})
 
 
 # Vector stores in Langchain:
-# In langchain for all vector stores we have built-in components and all are designed on common interfaces eg we can easily replace FAISS with Chroma in future.
+# In langchain for all vector-stores we have built-in components and all are designed on common interfaces eg: we can easily replace FAISS with Chroma in future.
 
-
-# Chroma DB-> It is a lightweight open-source vector databse that is friendly for local development and medium - scale production 
+# Chroma DB -> It is a lightweight open-source vector database that is friendly for local-development and medium-scale production 
 # Chroma can come between a vector store and vector databse (it have only few features of db features)
 
 # check hierarchy of chroma db
@@ -635,7 +632,7 @@ doc5 = Document(
     )
 
 
-vector_store = Chroma(      # Creates new chroma db -> and sqlite3 file will be created where everything stores 
+vector_store = Chroma(      # Creates new chroma db -> and sqlite3 file will be created, where everything stores 
     embedding_function=OpenAIEmbeddings(),
     persist_directory='my_chroma_db',
     collection_name='sample'
@@ -695,12 +692,12 @@ vector_store.delete(ids=['09a39dc6-3ba6-4ea7-927e-fdda591da5e4'])
 #                          query
 
 # There are multiple retrievers in langchain for different usecases 
-# All retrievers are runnables (therefore they can be chainned and also pushed in existing chains)
+# All retrievers are runnables (therefore they can be chainned and also pushed in existing chains)  vv imp!!
 
 # Types of Retrievers based on Data sources 
 
 # Wikipedia Retriever -> Searches query on wikipedia 
-# Vector store based retrievers -> Searches in vector databased 
+# Vector store based retrievers -> Searches in vector database
 # Archive Retriever -> Searches on Archive web-page.
 
 # Types of Retrievers based on Search strategy
@@ -710,14 +707,14 @@ vector_store.delete(ids=['09a39dc6-3ba6-4ea7-927e-fdda591da5e4'])
 # and more 
 
 # Wikipedia Retriever: It is a retriever that queries wikipedia api to fetch content based on given query 
-# sends query to wikipedia - api ---> retrieves most relevant articles ---> return them as langchain document objects 
+# sends query to wikipedia-api ---> retrieves most relevant articles ---> return them as langchain document objects 
 # relevance is based on text matching 
 
 
 retriever = WikipediaRetriever(top_k_results=2, lang="en")
 
 # Define your query
-query = "the geopolitical history of india and pakistan from the perspective of a chinese"
+query = "The geopolitical history of india and pakistan from the perspective of a chinese"
 
 # Get relevant Wikipedia documents
 docs = retriever.invoke(query)      # Invoke function also shows retriever is a runnable 
@@ -726,8 +723,8 @@ docs = retriever.invoke(query)      # Invoke function also shows retriever is a 
 
 
 
-# Vector store Retriever -> brings relavent documents from vector store (most common) based on semantic searching 
-# documents stored in vector store (chroma) -> Each vector is converted to dense model using embedding model -->> user gives query -> query-> vector -> compare with available vectors and do semantic search 
+# Vector_store Retriever -> brings relavent documents from vector store (most common) based on semantic searching 
+# Documents stored in vector store (chroma) -> Each vector is converted to dense model using embedding model -->> user gives query -> query-> vector -> compare with available vectors and do semantic search 
 
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
@@ -752,12 +749,12 @@ vectorstore = Chroma.from_documents(
 )
 
 # Step 4: Convert vectorstore into a retriever
-retriever = vectorstore.as_retriever(search_kwargs={"k": 2})        # created retriever object , search_kwargs={"k": 2} tells how much responses we want 
+retriever = vectorstore.as_retriever(search_kwargs={"k": 2})        # created retriever object, search_kwargs={"k": 2} tells how much responses we want 
 
 query = "What is Chroma used for?"
 results = retriever.invoke(query)
 
-for i, doc in enumerate(results):
+for i, doc in enumerate(results):   # enumerate() -> index + value dono deta hai.
     print(f"\n--- Result {i+1} ---")
     print(doc.page_content)
 
