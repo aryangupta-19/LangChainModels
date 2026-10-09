@@ -779,3 +779,109 @@ for i, doc in enumerate(results):
 
 # Many times same info repeats -> MMR Reduces this problem -> next document is relavent + dissimilar to previous one 
 
+from langchain_community.vectorstores import FAISS      # Instead of chroma used Fiass this time.
+
+# Initialize OpenAI embeddings
+embedding_model = OpenAIEmbeddings()
+
+# Step 2: Create the FAISS vector store from documents
+vectorstore = FAISS.from_documents(
+    documents=docs,
+    embedding=embedding_model
+)
+
+# Enable MMR in the retriever
+retriever = vectorstore.as_retriever(
+    search_type="mmr",                   # <-- This enables MMR
+    search_kwargs={"k": 3, "lambda_mult": 0.5}  # k = top results, lambda_mult = {0,1}  1 -> mmr behaves as normally similarity search and 0-> mmr gives totally different result so beetter to be in 0 to 1 
+)
+
+query = "What is langchain?"
+results = retriever.invoke(query)
+
+for i, doc in enumerate(results):
+    print(f"\n--- Result {i+1} ---")
+    print(doc.page_content)
+
+
+
+
+# Multiquery Retriever => soemtimes query can be ambiguous (meaning not clear)  -> This retriever tries to end the ambiguity from query
+
+# eg: query is How to stay healthy
+# 1) send query to llm -> it will generate multiple diverse quereis from the query given -> 
+# # eg:
+# 1. "What are the best foods to maintain good health?"
+# 2. "How often should I exercise to stay fit?"
+# 3. "What lifestyle habits improve mental and physical wellness?"
+# 4. "How can I boost my immune system naturally?"
+# 5. "What daily routines support long-term health?"
+
+
+# Now send these 5 queries to 5 retriever then retriever will give 5 docs acc to their queries 
+# Then merge all the responses and remove the duplicates and give top k results in output.
+
+
+# Tries to reduce quer amibguity by generating multiquery retriever.
+
+
+from langchain_community.vectorstores import FAISS      # again using fiass 
+from langchain_openai import OpenAIEmbeddings
+from langchain_core.documents import Document
+from langchain_openai import ChatOpenAI
+from langchain.retrievers.multi_query import MultiQueryRetriever
+
+# Relevant health & wellness documents
+all_docs = [
+    Document(page_content="Regular walking boosts heart health and can reduce symptoms of depression.", metadata={"source": "H1"}),
+    Document(page_content="Consuming leafy greens and fruits helps detox the body and improve longevity.", metadata={"source": "H2"}),
+    Document(page_content="Deep sleep is crucial for cellular repair and emotional regulation.", metadata={"source": "H3"}),
+    Document(page_content="Mindfulness and controlled breathing lower cortisol and improve mental clarity.", metadata={"source": "H4"}),
+    Document(page_content="Drinking sufficient water throughout the day helps maintain metabolism and energy.", metadata={"source": "H5"}),
+    Document(page_content="The solar energy system in modern homes helps balance electricity demand.", metadata={"source": "I1"}),
+    Document(page_content="Python balances readability with power, making it a popular system design language.", metadata={"source": "I2"}),
+    Document(page_content="Photosynthesis enables plants to produce energy by converting sunlight.", metadata={"source": "I3"}),
+    Document(page_content="The 2022 FIFA World Cup was held in Qatar and drew global energy and excitement.", metadata={"source": "I4"}),
+    Document(page_content="Black holes bend spacetime and store immense gravitational energy.", metadata={"source": "I5"}),
+]
+
+# Initialize OpenAI embeddings
+embedding_model = OpenAIEmbeddings()
+
+# Create FAISS vector store
+vectorstore = FAISS.from_documents(documents=all_docs, embedding=embedding_model)
+
+# Create both similarity and multiquery retriever to see difference 
+
+similarity_retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 5})
+
+multiquery_retriever = MultiQueryRetriever.from_llm(
+    retriever=vectorstore.as_retriever(search_kwargs={"k": 5}), # top 5 outputs 
+    llm=ChatOpenAI(model="gpt-3.5-turbo")   # internal llm to generate multiple queries out of a query 
+)
+
+# Query
+query = "How to improve energy levels and maintain balance?"
+
+# Retrieve results
+similarity_results = similarity_retriever.invoke(query)
+multiquery_results= multiquery_retriever.invoke(query)
+
+for i, doc in enumerate(similarity_results):
+    print(f"\n--- Result {i+1} ---")
+    print(doc.page_content)
+
+print("*"*150)
+
+for i, doc in enumerate(multiquery_results):
+    print(f"\n--- Result {i+1} ---")
+    print(doc.page_content)
+    
+    
+    
+# Centextual Compression Retriever -> Advanced  retriever that improves retrieval quality by compressing documents after retrieval -> keeping only the relavent content based on the user's query.
+# 
+
+#  Retriever has two parts 
+# first query -> normal retriever -> extracts two documents and then send both documents to llm and query to llm and write a prompt based on this query trim the document and remove the irrelavent part.
+
