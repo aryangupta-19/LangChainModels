@@ -18,7 +18,7 @@ print(langchain.__version__)
 # LLMs talk to human but don't provide structured outputs they provide just english text that was the reason they were not able to 
 # integrate with databses or other systems  
 
-# And we provided structred outputs to llm so that they can now contact with other systems also
+# And we provided structred outputs to llm so that they can now contact with other systems also 
 
 
 # LLMs are of 2 types -> can and can't 
